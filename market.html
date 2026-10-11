@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>应用集市 · OC应用集市</title>
+<meta name="description" content="OC应用集市 应用集市页：一页查看并下载全部上架应用，支持关键词搜索与排序。">
+<meta name="theme-color" content="#1A6CB5">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#appsList">跳到应用列表</a>
+
+<main>
+  <!-- ==================== 集市页头部 ==================== -->
+  <section class="market-hero">
+    <div class="container market-hero__inner" data-reveal>
+      <p class="eyebrow eyebrow--light">OC Market</p>
+      <h1 class="market-hero__title">应用集市</h1>
+      <p class="market-hero__desc">
+        本站 <code id="statDir">files/</code> 目录下的全部文件已在此公示，共
+        <strong id="statCount">0</strong> 个安装包、总容量 <strong id="statSize">—</strong>，
+        最近更新于 <strong id="statDate">—</strong>。
+      </p>
+
+      <div class="search">
+        <svg class="search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/>
+        </svg>
+        <input id="searchInput" type="search" autocomplete="off"
+               placeholder="搜索应用名称、版本或类型，例如 CSS编辑器、便携版、1.2.1"
+               aria-label="搜索应用">
+        <button class="search__clear" id="searchClear" type="button" hidden>清空</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 文件列表 ==================== -->
+  <section class="section section--soft" id="appsList">
+    <div class="container">
+      <div class="market-bar" data-reveal>
+        <div class="market-bar__right">
+          <span class="market-count" id="resultCount">—</span>
+          <label class="market-sort">
+            <span>排序</span>
+            <select id="sortSelect">
+              <option value="name">按名称</option>
+              <option value="size-desc">按大小（大 → 小）</option>
+              <option value="size-asc">按大小（小 → 大）</option>
+              <option value="date-desc">按更新时间（新 → 旧）</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="file-grid" id="fileGrid" aria-live="polite"></div>
+
+      <p class="market-empty" id="emptyState" hidden>没有找到匹配的应用，换个关键词试试（可输入应用名、版本号或类型）。</p>
+    </div>
+  </section>
+
+  <!-- ==================== 下载说明 ==================== -->
+  <section class="section" id="notes">
+    <div class="container">
+      <header class="section__head" data-reveal>
+        <p class="eyebrow">Download Notes</p>
+        <h2 class="section__title">下载与安装说明</h2>
+        <p class="section__desc">全部文件均为 Windows 可执行程序（.exe），下载前请核对文件名与大小。</p>
+      </header>
+
+      <div class="grid grid--4">
+        <article class="card" data-reveal>
+          <span class="card__icon card__icon--orange" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+          </span>
+          <h3 class="card__title">便携版免安装</h3>
+          <p class="card__text">解压即用，不写注册表、不生成卸载项，换个目录或 U 盘照样运行。</p>
+        </article>
+
+        <article class="card" data-reveal>
+          <span class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+          </span>
+          <h3 class="card__title">安装版按向导安装</h3>
+          <p class="card__text">自动创建快捷方式与文件关联，支持直接覆盖安装完成升级。</p>
+        </article>
+
+        <article class="card" data-reveal>
+          <span class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6"/><path d="M12 15h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          </span>
+          <h3 class="card__title">新旧版本同时公示</h3>
+          <p class="card__text">同一应用的历史版本一并保留，方便对比后自行决定是否升级。</p>
+        </article>
+
+        <article class="card" data-reveal>
+          <span class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+          </span>
+          <h3 class="card__title">安全提示</h3>
+          <p class="card__text">若 SmartScreen 提示"未识别的应用"，核对文件名与大小后选择"仍要运行"。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 行动号召 ==================== -->
+  <section class="cta">
+    <div class="container cta__inner" data-reveal>
+      <h2>没有找到需要的应用？</h2>
+      <p>应用分类页展示了六大分类的完整清单，也欢迎直接向我们提交上架需求。</p>
+      <a class="btn btn--orange btn--lg" href="index.html#apps">
+        浏览应用分类
+        <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h13"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="about">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand-col">
+        <p class="footer__brand">
+          <img src="assets/img/logo.svg" alt="" width="30" height="30">
+          <span>OC应用集市</span>
+        </p>
+        <p class="footer__slogan">快捷 · 方便 · 齐全<br>统一入口，一键获取。</p>
+      </div>
+      <div>
+        <h4>产品</h4>
+        <a href="market.html">应用集市</a>
+        <a href="index.html#features">核心特色</a>
+        <a href="index.html#stats">平台数据</a>
+      </div>
+      <div>
+        <h4>支持</h4>
+        <a href="#notes">下载说明</a>
+        <a href="index.html#about">帮助中心</a>
+        <a href="index.html#about">安全中心</a>
+      </div>
+      <div>
+        <h4>联系</h4>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+        <a href="index.html#about">加入我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> OC应用集市 · 保留所有权利</span>
+      <span>快捷 · 方便 · 齐全</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/files-data.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/market.js" defer></script>
+</body>
+</html>
