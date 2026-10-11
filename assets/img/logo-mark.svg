@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" width="420" height="420" role="img" aria-label="OC应用集市 标志（深色）">
+  <title>OC应用集市 标志（深色）</title>
+  <!-- 用于浅色背景：蓝色 C 形环 + 橙色圆点 -->
+  <circle cx="210" cy="210" r="72" fill="#F9A61C"/>
+  <circle cx="210" cy="210" r="163" fill="none" stroke="#1A6CB5" stroke-width="86"
+          stroke-dasharray="876.2 147.9" transform="rotate(26 210 210)"/>
+</svg>

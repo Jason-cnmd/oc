@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" width="420" height="420" role="img" aria-label="OC应用集市 标志">
+  <title>OC应用集市 标志</title>
+  <!-- 中心橙色圆点 -->
+  <circle cx="210" cy="210" r="72" fill="#F9A61C"/>
+  <!-- 白色 C 形环（右侧留出 52° 开口） -->
+  <circle cx="210" cy="210" r="163" fill="none" stroke="#FFFFFF" stroke-width="86"
+          stroke-dasharray="876.2 147.9" transform="rotate(26 210 210)"/>
+</svg>
